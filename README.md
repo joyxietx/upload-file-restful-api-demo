@@ -21,3 +21,16 @@ Change value of `storeLocation` in `src/main/resources/application.properties`
 
 ## Postman screenshots
 
++ Choose a file to upload:
+
+![](https://github.com/joyxietx/upload-file-restful-api-demo/blob/master/PostmanScreenshots/upload.png)
+
++ List all uploaded files' metadata
+
+![](https://github.com/joyxietx/upload-file-restful-api-demo/blob/master/PostmanScreenshots/list_all_upload_file_metadata.png)
+
++ Get a file's metadata by file ID
+
+![](https://github.com/joyxietx/upload-file-restful-api-demo/blob/master/PostmanScreenshots/get_one_file_metadata_by_id.png)
+
+
