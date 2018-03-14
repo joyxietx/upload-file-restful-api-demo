@@ -25,11 +25,16 @@ public class UploadFileServiceImpl implements UploadFileService {
 	@Autowired
 	private FileRepository fileRepository;
 	
+	@Autowired
 	public UploadFileServiceImpl(@Value("${storeLocation}") String storeFolderPath) {
+		this.storeFolderPath = storeFolderPath;
+		//this.fileRepository = fileRepository;
+	}
+
+	public void setStoreFolderPath(String storeFolderPath) {
 		this.storeFolderPath = storeFolderPath;
 	}
 
-	
 	@Override
 	public FileEntity save(MultipartFile file) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -45,7 +50,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 		fileEntity.setSize(file.getSize());
 		fileEntity.setUploadedLocation(Paths.get(storeFolderPath).toAbsolutePath().toString());
 		fileEntity.setType(file.getContentType());
-						
+		
 		FileEntity fe = fileRepository.save(fileEntity);
 		
 		return fe;
