@@ -33,4 +33,7 @@ Change value of `storeLocation` in `src/main/resources/application.properties`
 
 ![](https://github.com/joyxietx/upload-file-restful-api-demo/blob/master/PostmanScreenshots/get_one_file_metadata_by_id.png)
 
+## h2 database screenshot
+![](https://github.com/joyxietx/upload-file-restful-api-demo/blob/master/PostmanScreenshots/h2-database.png)
+
 
