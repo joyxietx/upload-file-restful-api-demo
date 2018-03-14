@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,19 +34,20 @@ import com.demo.uploadfile.model.FileEntity;
 import com.demo.uploadfile.repository.FileRepository;
 
 
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class UploadFileServiceImplTest {
 	
-	//@MockBean
-	@InjectMocks 
-	private UploadFileServiceImpl uploadFileService;
-	
-	@MockBean
-	private FileRepository fileRepository;
+	@Autowired
+	private UploadFileService uploadFileService;
+
 	
 	@Rule
 	public TemporaryFolder testFolder = new TemporaryFolder();
 	
 	private File storeFolder;
+	
+	private Path uploadedPath;
 	
 	@Before
 	// create the folder for store uploaded files 
@@ -53,7 +55,7 @@ public class UploadFileServiceImplTest {
 		
 		storeFolder = testFolder.newFolder("test-uploaded-files");
 		
-		uploadFileService = new UploadFileServiceImpl(storeFolder.getAbsolutePath());		
+		uploadFileService.setStoreFolderPath(storeFolder.getAbsolutePath());
 		
 	}
 	
@@ -66,7 +68,7 @@ public class UploadFileServiceImplTest {
     	FileEntity fileEntity = uploadFileService.save(mmf);
     	
     	// get the absolute path of the uploaded file
-    	Path uploadedPath = storeFolder.toPath().resolve("foo.txt");
+    	uploadedPath = storeFolder.toPath().resolve("foo.txt");
     	
     	// read the uploaded file content
     	BufferedReader reader = Files.newBufferedReader(uploadedPath, Charset.forName("UTF-8"));   	
@@ -83,10 +85,9 @@ public class UploadFileServiceImplTest {
 
     
     @After
-    // delete all dirs and files created
-    public void cleanUp() {    	
+    // delete all dirs and files created for testing
+    public void cleanUp() throws IOException {    	
     	testFolder.delete();
     }
-
 	
 }
